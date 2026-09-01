@@ -1,37 +1,79 @@
 .container {
   display: flex;
   justify-content: space-around;
+  gap: 24px;
 }
 
 .summary {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 7rem 1fr;
+  grid-template-rows: auto auto auto;
+  column-gap: 20px;
+  align-items: center;
+
   background-color: var(--color-surface);
-  width: 200px;
-  height: 120px;
-  margin-top: 20px;
-  border-radius: 10px;
+  min-height: 200px;
+  margin: 40px;
   padding: 20px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+  border-radius: 10px;
   border: 1px solid var(--color-border);
   box-shadow: var(--box-shadow);
 }
 
 .title {
+  grid-column: 2;
+  font-size: 2.2rem;
   color: var(--color-text-primary);
+  margin-bottom: 10px;
+}
+
+.iconAmount {
+  grid-column: 1 / -1;
+
+  display: grid;
+  grid-template-columns: 7rem 1fr;
+  align-items: center;
+  column-gap: 20px;
+}
+
+.iconContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.wallet {
+  color: var(--color-success);
+  background-color: var(--color-success-background);
+  padding: 10px;
+  width: 7rem;
+  height: 7rem;
+  border-radius: 10px;
+}
+
+.arrowDownFromLine {
+  color: var(--color-danger);
+  background-color: var(--color-danger-background);
+  padding: 10px;
+  width: 7rem;
+  height: 7rem;
+  border-radius: 10px;
 }
 
 .amount {
-  font-size: 2.4rem;
+  font-size: 4rem;
   color: var(--color-success);
 }
 
 .spent {
-  font-size: 2.4rem;
+  font-size: 4rem;
   color: var(--color-danger);
 }
 
 .footer {
-  font-size: 1.2rem;
+  grid-column: 2;
+  font-size: 1.8rem;
   color: var(--color-text-muted);
+  margin-top: 10px;
 }
