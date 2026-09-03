@@ -1,0 +1,137 @@
+.container {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  box-shadow: var(--box-shadow);
+  margin: 0px 40px 40px 20px;
+  padding: 20px;
+  width: 100%;
+  max-height: 454px;
+}
+
+.headerContainer {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.textContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.listIcon {
+  color: var(--color-success);
+  background-color: var(--color-success-background);
+  padding: 10px;
+  width: 5rem;
+  height: 5rem;
+  border-radius: 6px;
+}
+
+.textContainer h2 {
+  font-size: 2.2rem;
+  color: var(--color-text-primary);
+}
+
+.textContainer p {
+  font-size: 1.8rem;
+  color: var(--color-text-muted);
+}
+
+ul {
+  background-color: var(--color-background);
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  box-shadow: var(--box-shadow);
+  list-style: none;
+  margin-top: 20px;
+  font-size: 1.8rem;
+  max-height: 335px;
+  overflow-y: auto;
+}
+
+ul::-webkit-scrollbar {
+  width: 8px;
+}
+
+ul::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+ul::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border-radius: 10px;
+}
+
+ul::-webkit-scrollbar-thumb:hover {
+  background: var(--color-text-muted);
+}
+
+li {
+  border-bottom: 1px solid var(--color-border);
+  padding: 2rem;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 16px;
+}
+
+li span {
+  color: var(--color-text-primary);
+}
+
+li p {
+  color: var(--color-text-muted);
+}
+
+li .amountPositive {
+  color: var(--color-success);
+  font-weight: bold;
+}
+
+li .amountNegative {
+  color: var(--color-danger);
+  font-weight: bold;
+}
+
+.arrowUpIcon {
+  color: var(--color-success);
+  background-color: var(--color-success-background);
+  padding: 10px;
+  width: 4.5rem;
+  height: 4.5rem;
+  border-radius: 50%;
+}
+
+.arrowDownIcon {
+  color: var(--color-danger);
+  background-color: var(--color-danger-background);
+  padding: 10px;
+  width: 4.5rem;
+  height: 4.5rem;
+  border-radius: 50%;
+}
+
+.trashIcon {
+  color: var(--color-text-primary);
+}
+
+.trasationLeft {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.trasationRight {
+  display: flex;
+  gap: 20px;
+  justify-content: flex-end;
+}
+
+.trashButton {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}

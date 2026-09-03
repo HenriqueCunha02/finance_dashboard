@@ -1,13 +1,19 @@
 import { Header } from '../../components/Header';
 import { Summary } from '../../components/Summary';
-import { TransitionForm } from '../../components/TransitionForm';
+import { TransactionForm } from '../../components/TransactionForm';
+import { TransactionList } from '../../components/TransactionList';
+
+import styles from './styles.module.css';
 
 export function Home() {
   return (
-    <>
+    <div>
       <Header />
       <Summary />
-      <TransitionForm />
-    </>
+      <div className={styles.container}>
+        <TransactionForm />
+        <TransactionList />
+      </div>
+    </div>
   );
 }

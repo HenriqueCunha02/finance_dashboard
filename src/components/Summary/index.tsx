@@ -1,4 +1,4 @@
-import { ArrowDownFromLine, ArrowDownToLine, Wallet } from 'lucide-react';
+import { ArrowUpFromLine, Wallet, ArrowDownFromLine } from 'lucide-react';
 
 import styles from './styles.module.css';
 
@@ -9,7 +9,7 @@ export function Summary() {
         <span className={styles.title}>Saldo</span>
         <div className={styles.iconAmount}>
           <div className={styles.iconContainer}>
-            <Wallet className={styles.wallet} />
+            <Wallet className={styles.greenIcon} />
           </div>
           <span className={styles.amount}>R$2900,00</span>
         </div>
@@ -20,7 +20,7 @@ export function Summary() {
         <span className={styles.title}>Receitas</span>
         <div className={styles.iconAmount}>
           <div className={styles.iconContainer}>
-            <ArrowDownToLine className={styles.wallet} />
+            <ArrowUpFromLine className={styles.greenIcon} />
           </div>
           <span className={styles.amount}>R$3000,00</span>
         </div>
