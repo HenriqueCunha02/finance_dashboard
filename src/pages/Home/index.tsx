@@ -14,6 +14,10 @@ export function Home() {
         <TransactionForm />
         <TransactionList />
       </div>
+
+      <div className={styles.div}>
+        <footer>2026 Finance Dashboard. Todos os direitos reservados.</footer>
+      </div>
     </div>
   );
 }
