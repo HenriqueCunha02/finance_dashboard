@@ -4,9 +4,16 @@ import {
   ListSortDescending,
   Trash,
 } from 'lucide-react';
+
+import type { TransactionModel } from '../../models/transactionModel';
+
 import styles from './styles.module.css';
 
-export function TransactionList() {
+type TransactionListProps = {
+  transactions: TransactionModel[];
+};
+
+export function TransactionList({ transactions }: TransactionListProps) {
   return (
     <div className={styles.container}>
       <div className={styles.headerContainer}>
@@ -18,108 +25,42 @@ export function TransactionList() {
       </div>
 
       <ul>
-        <li>
-          <div className={styles.trasationLeft}>
-            <ArrowUpFromLine className={styles.arrowUpIcon} />
-            <div className={styles.transationDetails}>
-              <span>Salário</span>
-              <p>Trabalho</p>
+        {transactions.map(transaction => (
+          <li key={transaction.id}>
+            <div className={styles.trasationLeft}>
+              {transaction.type === 'income' ? (
+                <ArrowUpFromLine className={styles.arrowUpIcon} />
+              ) : (
+                <ArrowDownFromLine className={styles.arrowDownIcon} />
+              )}
+              <div className={styles.transationDetails}>
+                <span>{transaction.description}</span>
+                <p>{transaction.category}</p>
+              </div>
             </div>
-          </div>
 
-          <div className={styles.trasationMiddle}>
-            <span className={styles.amountPositive}>+ R$3.500,00</span>
-          </div>
-
-          <div className={styles.trasationRight}>
-            <span>12/08/2026</span>
-            <button className={styles.trashButton}>
-              <Trash className={styles.trashIcon} />
-            </button>
-          </div>
-        </li>
-
-        <li>
-          <div className={styles.trasationLeft}>
-            <ArrowDownFromLine className={styles.arrowDownIcon} />
-            <div className={styles.transationDetails}>
-              <span>Gasolina</span>
-              <p>Automóvel</p>
+            <div className={styles.trasationMiddle}>
+              {transaction.type === 'income' ? (
+                <span className={styles.amountPositive}>
+                  {' '}
+                  + R${transaction.amount}{' '}
+                </span>
+              ) : (
+                <span className={styles.amountNegative}>
+                  {' '}
+                  - R${transaction.amount}{' '}
+                </span>
+              )}
             </div>
-          </div>
 
-          <div className={styles.trasationMiddle}>
-            <span className={styles.amountNegative}>- R$70,00</span>
-          </div>
-
-          <div className={styles.trasationRight}>
-            <span>12/08/2026</span>
-            <button className={styles.trashButton}>
-              <Trash className={styles.trashIcon} />
-            </button>
-          </div>
-        </li>
-
-        <li>
-          <div className={styles.trasationLeft}>
-            <ArrowDownFromLine className={styles.arrowDownIcon} />
-            <div className={styles.transationDetails}>
-              <span>Mercado</span>
-              <p>Alimentação</p>
+            <div className={styles.trasationRight}>
+              <span>{transaction.date}</span>
+              <button className={styles.trashButton} type='button'>
+                <Trash className={styles.trashIcon} />
+              </button>
             </div>
-          </div>
-
-          <div className={styles.trasationMiddle}>
-            <span className={styles.amountNegative}>- R$200,00</span>
-          </div>
-
-          <div className={styles.trasationRight}>
-            <span>11/08/2026</span>
-            <button className={styles.trashButton}>
-              <Trash className={styles.trashIcon} />
-            </button>
-          </div>
-        </li>
-        <li>
-          <div className={styles.trasationLeft}>
-            <ArrowDownFromLine className={styles.arrowDownIcon} />
-            <div className={styles.transationDetails}>
-              <span>Mercado</span>
-              <p>Alimentação</p>
-            </div>
-          </div>
-
-          <div className={styles.trasationMiddle}>
-            <span className={styles.amountNegative}>- R$200,00</span>
-          </div>
-
-          <div className={styles.trasationRight}>
-            <span>11/08/2026</span>
-            <button className={styles.trashButton}>
-              <Trash className={styles.trashIcon} />
-            </button>
-          </div>
-        </li>
-        <li>
-          <div className={styles.trasationLeft}>
-            <ArrowDownFromLine className={styles.arrowDownIcon} />
-            <div className={styles.transationDetails}>
-              <span>Mercado</span>
-              <p>Alimentação</p>
-            </div>
-          </div>
-
-          <div className={styles.trasationMiddle}>
-            <span className={styles.amountNegative}>- R$200,00</span>
-          </div>
-
-          <div className={styles.trasationRight}>
-            <span>11/08/2026</span>
-            <button className={styles.trashButton}>
-              <Trash className={styles.trashIcon} />
-            </button>
-          </div>
-        </li>
+          </li>
+        ))}
       </ul>
     </div>
   );

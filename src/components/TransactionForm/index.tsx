@@ -3,13 +3,42 @@ import { Plus } from 'lucide-react';
 import styles from './styles.module.css';
 import { useState } from 'react';
 import { CategoryModal } from '../CategoryModal';
+import type { TransactionModel } from '../../models/transactionModel';
 
-export function TransactionForm() {
+type TransactionFormProps = {
+  setTransactions: React.Dispatch<React.SetStateAction<TransactionModel[]>>;
+};
+
+export function TransactionForm({ setTransactions }: TransactionFormProps) {
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+
+    const formData = new FormData(event.currentTarget);
+
+    const description = formData.get('description') as string;
+    const amount = Number(formData.get('amount'));
+    const type = formData.get('type') as TransactionModel['type'];
+    const category = formData.get('category') as string;
+
+    const newTransaction: TransactionModel = {
+      id: Date.now(),
+      description: description,
+      amount: amount,
+      category: category,
+      type: type,
+      date: new Date().toLocaleDateString('pt-BR'),
+    };
+
+    setTransactions(prevTransactions => [...prevTransactions, newTransaction]);
+
+    event.currentTarget.reset();
+  }
 
   return (
     <>
-      <form>
+      <form onSubmit={handleSubmit}>
         <div className={styles.container}>
           <div className={styles.headerContainer}>
             <Plus className={styles.plusIcon} color='#22c55e' />
@@ -23,6 +52,7 @@ export function TransactionForm() {
             <label htmlFor='description'>Descrição</label>
             <input
               id='description'
+              name='description'
               type='text'
               placeholder='Ex: Mercado, Salário, Netflix... '
             />
@@ -31,13 +61,18 @@ export function TransactionForm() {
           <div className={styles.fieldRow}>
             <div className={styles.field}>
               <label htmlFor='amount'>Valor</label>
-              <input id='amount' type='number' placeholder='R$ 0,00' />
+              <input
+                id='amount'
+                name='amount'
+                type='number'
+                placeholder='R$ 0,00'
+              />
             </div>
             <div className={styles.field}>
               <label htmlFor='type'>Tipo</label>
               <select name='type' id='type'>
-                <option value='Receita'>Receita</option>
-                <option value='Despesa'>Despesa</option>
+                <option value='income'>Receita</option>
+                <option value='expense'>Despesa</option>
               </select>
             </div>
           </div>
@@ -62,7 +97,7 @@ export function TransactionForm() {
 
           <button type='submit' className={styles.submitButton}>
             <Plus />
-            Adicionar transição
+            Adicionar transação
           </button>
         </div>
       </form>

@@ -18,15 +18,15 @@ export function CategoryModal({ onClose }: CategoryModalProps) {
         />
 
         <div className={styles.actions}>
-          <button
-            className={styles.createButton}
-            type='button'
-            onClick={onClose}
-          >
+          <button className={styles.createButton} type='button'>
             Criar categoria
           </button>
 
-          <button className={styles.closeButton} type='button'>
+          <button
+            className={styles.closeButton}
+            type='button'
+            onClick={onClose}
+          >
             Cancelar
           </button>
         </div>
