@@ -11,9 +11,13 @@ import styles from './styles.module.css';
 
 type TransactionListProps = {
   transactions: TransactionModel[];
+  onDeleteTransaction: (id: number) => void;
 };
 
-export function TransactionList({ transactions }: TransactionListProps) {
+export function TransactionList({
+  transactions,
+  onDeleteTransaction,
+}: TransactionListProps) {
   return (
     <div className={styles.container}>
       <div className={styles.headerContainer}>
@@ -55,7 +59,11 @@ export function TransactionList({ transactions }: TransactionListProps) {
 
             <div className={styles.trasationRight}>
               <span>{transaction.date}</span>
-              <button className={styles.trashButton} type='button'>
+              <button
+                className={styles.trashButton}
+                type='button'
+                onClick={() => onDeleteTransaction(transaction.id)}
+              >
                 <Trash className={styles.trashIcon} />
               </button>
             </div>

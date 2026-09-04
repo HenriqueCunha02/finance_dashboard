@@ -27,13 +27,22 @@ export function Home() {
     },
   ]);
 
+  function handleDeleteTransaction(id: number) {
+    setTransactions(prevTransactions =>
+      prevTransactions.filter(transaction => transaction.id !== id),
+    );
+  }
+
   return (
     <div>
       <Header />
       <Summary />
       <div className={styles.container}>
         <TransactionForm setTransactions={setTransactions} />
-        <TransactionList transactions={transactions} />
+        <TransactionList
+          transactions={transactions}
+          onRemoveTransaction={handleDeleteTransaction}
+        />
       </div>
 
       <div className={styles.div}>
