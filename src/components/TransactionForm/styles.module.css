@@ -82,6 +82,19 @@ input {
   margin: 20px 0px;
 }
 
+.createCategory {
+  display: flex;
+  justify-content: space-between;
+}
+
+.createCategoryButton {
+  font-weight: bold;
+  color: var(--color-text-primary);
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+
 .submitButton {
   display: flex;
   background-color: var(--color-success);
