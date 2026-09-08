@@ -11,6 +11,10 @@ type TransactionFormProps = {
 
 export function TransactionForm({ setTransactions }: TransactionFormProps) {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [categories, setCategories] = useState<string[]>([
+    'Mercado',
+    'Salário',
+  ]);
 
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -34,6 +38,19 @@ export function TransactionForm({ setTransactions }: TransactionFormProps) {
     setTransactions(prevTransactions => [...prevTransactions, newTransaction]);
 
     event.currentTarget.reset();
+  }
+
+  function handleCreateCategory(category: string) {
+    const newCategory = category.trim();
+
+    if (newCategory === '') {
+      return alert('Categoria vazia...');
+    }
+
+    if (categories.includes(newCategory)) {
+      return alert('Essa categoria já existe.');
+    }
+    setCategories(prevCategories => [...prevCategories, newCategory]);
   }
 
   return (
@@ -90,8 +107,11 @@ export function TransactionForm({ setTransactions }: TransactionFormProps) {
             </div>
             <select name='category' id='category'>
               <option value=''>Selecione uma categoria</option>
-              <option value='mercado'>Mercado</option>
-              <option value='salário'>Salário</option>
+              {categories.map(category => (
+                <option key={category} value={category}>
+                  {category}
+                </option>
+              ))}
             </select>
           </div>
 
@@ -101,7 +121,12 @@ export function TransactionForm({ setTransactions }: TransactionFormProps) {
           </button>
         </div>
       </form>
-      {isModalOpen && <CategoryModal onClose={() => setIsModalOpen(false)} />}
+      {isModalOpen && (
+        <CategoryModal
+          onClose={() => setIsModalOpen(false)}
+          onCreateCategory={handleCreateCategory}
+        />
+      )}
     </>
   );
 }
