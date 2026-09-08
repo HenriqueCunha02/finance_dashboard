@@ -1,16 +1,33 @@
 import { useState } from 'react';
 import styles from './styles.module.css';
+import { useFinanceContext } from '../../contexts/useFinanceContext';
+import { FinanceActionTypes } from '../../contexts/financeActions';
 
 type CategoryModalProps = {
   onClose: () => void;
-  onCreateCategory: (category: string) => void;
 };
 
-export function CategoryModal({
-  onClose,
-  onCreateCategory,
-}: CategoryModalProps) {
+export function CategoryModal({ onClose }: CategoryModalProps) {
+  const { state, dispatch } = useFinanceContext();
+
   const [category, setCategory] = useState('');
+
+  function handleCreateCategory(category: string) {
+    const newCategory = category.trim();
+
+    if (newCategory === '') {
+      return alert('Categoria vazia...');
+    }
+
+    if (state.categories.includes(newCategory)) {
+      return alert('Essa categoria já existe.');
+    }
+    dispatch({
+      type: FinanceActionTypes.CREATE_CATEGORY,
+      payload: newCategory,
+    });
+  }
+
   return (
     <div className={styles.overlay}>
       <div className={styles.modal}>
@@ -30,7 +47,7 @@ export function CategoryModal({
             className={styles.createButton}
             type='button'
             onClick={() => {
-              onCreateCategory(category);
+              handleCreateCategory(category);
               onClose();
             }}
           >

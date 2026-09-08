@@ -24,6 +24,13 @@ export function FinanceReducer(
         ),
       };
     }
+
+    case FinanceActionTypes.CREATE_CATEGORY: {
+      return {
+        ...state,
+        categories: [...state.categories, action.payload],
+      };
+    }
     default:
       return state;
   }

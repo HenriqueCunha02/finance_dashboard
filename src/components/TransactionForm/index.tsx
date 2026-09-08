@@ -8,13 +8,9 @@ import { useFinanceContext } from '../../contexts/useFinanceContext';
 import { FinanceActionTypes } from '../../contexts/financeActions';
 
 export function TransactionForm() {
-  const { dispatch } = useFinanceContext();
+  const { state, dispatch } = useFinanceContext();
 
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [categories, setCategories] = useState<string[]>([
-    'Mercado',
-    'Salário',
-  ]);
 
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -41,19 +37,6 @@ export function TransactionForm() {
     });
 
     event.currentTarget.reset();
-  }
-
-  function handleCreateCategory(category: string) {
-    const newCategory = category.trim();
-
-    if (newCategory === '') {
-      return alert('Categoria vazia...');
-    }
-
-    if (categories.includes(newCategory)) {
-      return alert('Essa categoria já existe.');
-    }
-    setCategories(prevCategories => [...prevCategories, newCategory]);
   }
 
   return (
@@ -110,7 +93,7 @@ export function TransactionForm() {
             </div>
             <select name='category' id='category'>
               <option value=''>Selecione uma categoria</option>
-              {categories.map(category => (
+              {state.categories.map(category => (
                 <option key={category} value={category}>
                   {category}
                 </option>
@@ -124,12 +107,7 @@ export function TransactionForm() {
           </button>
         </div>
       </form>
-      {isModalOpen && (
-        <CategoryModal
-          onClose={() => setIsModalOpen(false)}
-          onCreateCategory={handleCreateCategory}
-        />
-      )}
+      {isModalOpen && <CategoryModal onClose={() => setIsModalOpen(false)} />}
     </>
   );
 }
