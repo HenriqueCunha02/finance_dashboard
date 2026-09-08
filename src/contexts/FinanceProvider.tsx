@@ -5,7 +5,7 @@ import type { FinanceStateModel } from '../models/financeStateModel';
 
 const initialState: FinanceStateModel = {
   transactions: [],
-  categories: [],
+  categories: ['Mercado', 'Salário'],
   theme: 'dark',
 };
 

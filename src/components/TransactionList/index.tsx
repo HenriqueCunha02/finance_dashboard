@@ -5,19 +5,16 @@ import {
   Trash,
 } from 'lucide-react';
 
-import type { TransactionModel } from '../../models/transactionModel';
-
 import styles from './styles.module.css';
+import { useFinanceContext } from '../../contexts/useFinanceContext';
+import { FinanceActionTypes } from '../../contexts/financeActions';
 
-type TransactionListProps = {
-  transactions: TransactionModel[];
-  onDeleteTransaction: (id: number) => void;
-};
+export function TransactionList() {
+  const { state, dispatch } = useFinanceContext();
 
-export function TransactionList({
-  transactions,
-  onDeleteTransaction,
-}: TransactionListProps) {
+  function handleDeleteTransaction(id: number) {
+    dispatch({ type: FinanceActionTypes.DELETE_TRANSACTION, payload: id });
+  }
   return (
     <div className={styles.container}>
       <div className={styles.headerContainer}>
@@ -29,7 +26,7 @@ export function TransactionList({
       </div>
 
       <ul>
-        {transactions.map(transaction => (
+        {state.transactions.map(transaction => (
           <li key={transaction.id}>
             <div className={styles.trasationLeft}>
               {transaction.type === 'income' ? (
@@ -62,7 +59,7 @@ export function TransactionList({
               <button
                 className={styles.trashButton}
                 type='button'
-                onClick={() => onDeleteTransaction(transaction.id)}
+                onClick={() => handleDeleteTransaction(transaction.id)}
               >
                 <Trash className={styles.trashIcon} />
               </button>

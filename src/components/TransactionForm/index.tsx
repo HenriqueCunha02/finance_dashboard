@@ -4,12 +4,12 @@ import styles from './styles.module.css';
 import { useState } from 'react';
 import { CategoryModal } from '../CategoryModal';
 import type { TransactionModel } from '../../models/transactionModel';
+import { useFinanceContext } from '../../contexts/useFinanceContext';
+import { FinanceActionTypes } from '../../contexts/financeActions';
 
-type TransactionFormProps = {
-  setTransactions: React.Dispatch<React.SetStateAction<TransactionModel[]>>;
-};
+export function TransactionForm() {
+  const { dispatch } = useFinanceContext();
 
-export function TransactionForm({ setTransactions }: TransactionFormProps) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [categories, setCategories] = useState<string[]>([
     'Mercado',
@@ -35,7 +35,10 @@ export function TransactionForm({ setTransactions }: TransactionFormProps) {
       date: new Date().toLocaleDateString('pt-BR'),
     };
 
-    setTransactions(prevTransactions => [...prevTransactions, newTransaction]);
+    dispatch({
+      type: FinanceActionTypes.ADD_TRANSACTION,
+      payload: newTransaction,
+    });
 
     event.currentTarget.reset();
   }
