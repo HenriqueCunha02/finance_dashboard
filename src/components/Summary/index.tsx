@@ -1,8 +1,29 @@
 import { ArrowUpFromLine, Wallet, ArrowDownFromLine } from 'lucide-react';
 
 import styles from './styles.module.css';
+import type { TransactionModel } from '../../models/transactionModel';
 
-export function Summary() {
+type SummaryProps = {
+  transactions: TransactionModel[];
+};
+
+export function Summary({ transactions }: SummaryProps) {
+  const income = transactions.reduce((acc, transaction) => {
+    if (transaction.type === 'income') {
+      return acc + transaction.amount;
+    }
+    return acc;
+  }, 0);
+
+  const expense = transactions.reduce((acc, transaction) => {
+    if (transaction.type === 'expense') {
+      return acc + transaction.amount;
+    }
+    return acc;
+  }, 0);
+
+  const balance = income - expense;
+
   return (
     <div className={styles.container}>
       <div className={styles.summary}>
@@ -11,7 +32,7 @@ export function Summary() {
           <div className={styles.iconContainer}>
             <Wallet className={styles.greenIcon} />
           </div>
-          <span className={styles.amount}>R$2900,00</span>
+          <span className={styles.amount}>R$ {balance.toFixed(2)}</span>
         </div>
         <p className={styles.footer}>Total disponível</p>
       </div>
@@ -22,7 +43,7 @@ export function Summary() {
           <div className={styles.iconContainer}>
             <ArrowUpFromLine className={styles.greenIcon} />
           </div>
-          <span className={styles.amount}>R$3000,00</span>
+          <span className={styles.amount}>R$ {income.toFixed(2)}</span>
         </div>
         <p className={styles.footer}>Total de entradas</p>
       </div>
@@ -33,7 +54,7 @@ export function Summary() {
           <div className={styles.iconContainer}>
             <ArrowDownFromLine className={styles.arrowDownFromLine} />
           </div>
-          <span className={styles.spent}>R$100,00</span>
+          <span className={styles.spent}>R$ {expense.toFixed(2)}</span>
         </div>
         <p className={styles.footer}>Total de saídas</p>
       </div>

@@ -36,12 +36,12 @@ export function Home() {
   return (
     <div>
       <Header />
-      <Summary />
+      <Summary transactions={transactions} />
       <div className={styles.container}>
         <TransactionForm setTransactions={setTransactions} />
         <TransactionList
           transactions={transactions}
-          onRemoveTransaction={handleDeleteTransaction}
+          onDeleteTransaction={handleDeleteTransaction}
         />
       </div>
 
