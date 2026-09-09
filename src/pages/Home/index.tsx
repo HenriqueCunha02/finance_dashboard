@@ -4,15 +4,12 @@ import { TransactionForm } from '../../components/TransactionForm';
 import { TransactionList } from '../../components/TransactionList';
 
 import styles from './styles.module.css';
-import { useFinanceContext } from '../../contexts/useFinanceContext';
 
 export function Home() {
-  const { state } = useFinanceContext();
-
   return (
     <div>
       <Header />
-      <Summary transactions={state.transactions} />
+      <Summary />
       <div className={styles.container}>
         <TransactionForm />
         <TransactionList />

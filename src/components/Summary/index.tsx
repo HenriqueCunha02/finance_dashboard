@@ -1,21 +1,19 @@
 import { ArrowUpFromLine, Wallet, ArrowDownFromLine } from 'lucide-react';
 
 import styles from './styles.module.css';
-import type { TransactionModel } from '../../models/transactionModel';
+import { useFinanceContext } from '../../contexts/useFinanceContext';
 
-type SummaryProps = {
-  transactions: TransactionModel[];
-};
+export function Summary() {
+  const { state } = useFinanceContext();
 
-export function Summary({ transactions }: SummaryProps) {
-  const income = transactions.reduce((acc, transaction) => {
+  const income = state.transactions.reduce((acc, transaction) => {
     if (transaction.type === 'income') {
       return acc + transaction.amount;
     }
     return acc;
   }, 0);
 
-  const expense = transactions.reduce((acc, transaction) => {
+  const expense = state.transactions.reduce((acc, transaction) => {
     if (transaction.type === 'expense') {
       return acc + transaction.amount;
     }
