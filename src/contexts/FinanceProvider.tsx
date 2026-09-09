@@ -1,4 +1,4 @@
-import { useReducer } from 'react';
+import { useEffect, useReducer } from 'react';
 import { FinanceReducer } from '../reducers/financeReducer';
 import { FinanceContext } from './FinanceContext';
 import type { FinanceStateModel } from '../models/financeStateModel';
@@ -15,6 +15,10 @@ type FinanceProviderProps = {
 
 export function FinanceProvider({ children }: FinanceProviderProps) {
   const [state, dispatch] = useReducer(FinanceReducer, initialState);
+
+  useEffect(() => {
+    document.documentElement.dataset.theme = state.theme;
+  }, [state.theme]);
 
   return (
     <FinanceContext.Provider value={{ state, dispatch }}>

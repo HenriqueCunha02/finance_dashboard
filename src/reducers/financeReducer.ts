@@ -31,6 +31,13 @@ export function FinanceReducer(
         categories: [...state.categories, action.payload],
       };
     }
+
+    case FinanceActionTypes.TOGGLE_THEME: {
+      return {
+        ...state,
+        theme: state.theme === 'dark' ? 'light' : 'dark',
+      };
+    }
     default:
       return state;
   }
