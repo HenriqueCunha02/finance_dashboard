@@ -57,6 +57,15 @@ input {
   font-size: 1.5rem;
   appearance: none;
   cursor: pointer;
+  transition: 0.2s;
+}
+
+input:focus {
+  border: 1px solid var(--color-success);
+}
+
+select:focus {
+  border: 1px solid var(--color-success);
 }
 
 .description {
@@ -97,8 +106,8 @@ input {
 
 .submitButton {
   display: flex;
-  background-color: var(--color-success);
-  color: var(--color-text-primary);
+  background-color: var(--color-primary-hover);
+  color: #f8fafc;
   font-size: 1.8rem;
   border: none;
   border-radius: 6px;
@@ -111,5 +120,16 @@ input {
 }
 
 .submitButton:hover {
-  background-color: var(--color-success-background);
+  opacity: 85%;
+}
+
+.submitButton:active {
+  opacity: 60%;
+}
+
+@media (max-width: 1200px) {
+  .container {
+    width: auto;
+    margin: 0px 15px 15px 15px;
+  }
 }

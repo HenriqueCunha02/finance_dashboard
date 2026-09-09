@@ -6,3 +6,9 @@ footer {
   text-align: center;
   color: var(--color-text-secondary);
 }
+
+@media (max-width: 1200px) {
+  .container {
+    flex-direction: column;
+  }
+}

@@ -77,3 +77,34 @@
   color: var(--color-text-muted);
   margin-top: 10px;
 }
+
+@media (max-width: 1200px) {
+  .container {
+    margin-bottom: -22px;
+    padding: 0px 20px;
+    margin: 15px 0px;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+
+  .summary {
+    margin: 0px;
+    align-items: center;
+    justify-content: center;
+    min-height: 100px;
+  }
+
+  .summary:first-child {
+    flex-basis: 100%;
+  }
+
+  .summary:not(:first-child) {
+    flex: 1;
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+  }
+}

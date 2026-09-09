@@ -1,12 +1,14 @@
-import { Plus } from 'lucide-react';
-
-import styles from './styles.module.css';
-import { useState } from 'react';
 import { CategoryModal } from '../CategoryModal';
 import type { TransactionModel } from '../../models/transactionModel';
 import { useFinanceContext } from '../../contexts/useFinanceContext';
 import { FinanceActionTypes } from '../../contexts/financeActions';
+
+import { useState } from 'react';
+
+import { Plus } from 'lucide-react';
 import toast from 'react-hot-toast';
+
+import styles from './styles.module.css';
 
 export function TransactionForm() {
   const { state, dispatch } = useFinanceContext();
@@ -33,7 +35,7 @@ export function TransactionForm() {
       return;
     }
 
-    if (category === '') {
+    if (category.trim() === '') {
       toast.error('Selecione uma categoria');
       return;
     }
@@ -51,6 +53,8 @@ export function TransactionForm() {
       type: FinanceActionTypes.ADD_TRANSACTION,
       payload: newTransaction,
     });
+
+    toast.success('Transação criada com sucesso');
 
     event.currentTarget.reset();
   }

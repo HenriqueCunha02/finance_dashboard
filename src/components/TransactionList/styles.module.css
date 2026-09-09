@@ -135,3 +135,10 @@ li .amountNegative {
   border: none;
   cursor: pointer;
 }
+
+@media (max-width: 1200px) {
+  .container {
+    width: auto;
+    margin: 0px 20px 20px 20px;
+  }
+}

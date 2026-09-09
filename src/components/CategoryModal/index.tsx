@@ -2,6 +2,7 @@ import { useState } from 'react';
 import styles from './styles.module.css';
 import { useFinanceContext } from '../../contexts/useFinanceContext';
 import { FinanceActionTypes } from '../../contexts/financeActions';
+import toast from 'react-hot-toast';
 
 type CategoryModalProps = {
   onClose: () => void;
@@ -12,20 +13,25 @@ export function CategoryModal({ onClose }: CategoryModalProps) {
 
   const [category, setCategory] = useState('');
 
-  function handleCreateCategory(category: string) {
+  function handleCreateCategory(category: string): boolean {
     const newCategory = category.trim();
 
     if (newCategory === '') {
-      return alert('Categoria vazia...');
+      toast.error('Categoria vazia...');
+      return false;
     }
 
     if (state.categories.includes(newCategory)) {
-      return alert('Essa categoria já existe.');
+      toast.error('Essa categoria já existe.');
+      return false;
     }
     dispatch({
       type: FinanceActionTypes.CREATE_CATEGORY,
       payload: newCategory,
     });
+
+    toast.success('Categoria criada com sucesso');
+    return true;
   }
 
   return (
@@ -47,8 +53,10 @@ export function CategoryModal({ onClose }: CategoryModalProps) {
             className={styles.createButton}
             type='button'
             onClick={() => {
-              handleCreateCategory(category);
-              onClose();
+              const created = handleCreateCategory(category);
+              if (created) {
+                onClose();
+              }
             }}
           >
             Criar categoria

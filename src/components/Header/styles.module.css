@@ -25,8 +25,12 @@
 }
 
 .buttonTheme :hover {
-  opacity: 60%;
+  background-color: var(--color-primary-hover);
   transition: 0.2s;
+}
+
+.buttonTheme:active {
+  opacity: 60%;
 }
 
 .icon {
