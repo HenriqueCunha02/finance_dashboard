@@ -6,6 +6,7 @@ import { CategoryModal } from '../CategoryModal';
 import type { TransactionModel } from '../../models/transactionModel';
 import { useFinanceContext } from '../../contexts/useFinanceContext';
 import { FinanceActionTypes } from '../../contexts/financeActions';
+import toast from 'react-hot-toast';
 
 export function TransactionForm() {
   const { state, dispatch } = useFinanceContext();
@@ -21,6 +22,21 @@ export function TransactionForm() {
     const amount = Number(formData.get('amount'));
     const type = formData.get('type') as TransactionModel['type'];
     const category = formData.get('category') as string;
+
+    if (description.trim() === '') {
+      toast.error('Nome da transação não pode estar vazia');
+      return;
+    }
+
+    if (amount <= 0) {
+      toast.error('Valor da transação deve ser maior que R$0,00');
+      return;
+    }
+
+    if (category === '') {
+      toast.error('Selecione uma categoria');
+      return;
+    }
 
     const newTransaction: TransactionModel = {
       id: Date.now(),
