@@ -8,6 +8,7 @@ import {
 import styles from './styles.module.css';
 import { useFinanceContext } from '../../contexts/useFinanceContext';
 import { FinanceActionTypes } from '../../contexts/financeActions';
+import { formatCurrency } from '../../utils/formatCurrency';
 
 export function TransactionList() {
   const { state, dispatch } = useFinanceContext();
@@ -43,13 +44,11 @@ export function TransactionList() {
             <div className={styles.trasationMiddle}>
               {transaction.type === 'income' ? (
                 <span className={styles.amountPositive}>
-                  {' '}
-                  + R${transaction.amount}{' '}
+                  + {formatCurrency(transaction.amount)}
                 </span>
               ) : (
                 <span className={styles.amountNegative}>
-                  {' '}
-                  - R${transaction.amount}{' '}
+                  - {formatCurrency(transaction.amount)}
                 </span>
               )}
             </div>

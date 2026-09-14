@@ -2,6 +2,7 @@ import { ArrowUpFromLine, Wallet, ArrowDownFromLine } from 'lucide-react';
 
 import styles from './styles.module.css';
 import { useFinanceContext } from '../../contexts/useFinanceContext';
+import { formatCurrency } from '../../utils/formatCurrency';
 
 export function Summary() {
   const { state } = useFinanceContext();
@@ -30,7 +31,7 @@ export function Summary() {
           <div className={styles.iconContainer}>
             <Wallet className={styles.greenIcon} />
           </div>
-          <span className={styles.amount}>R$ {balance.toFixed(2)}</span>
+          <span className={styles.amount}>{formatCurrency(balance)}</span>
         </div>
         <p className={styles.footer}>Total disponível</p>
       </div>
@@ -41,7 +42,7 @@ export function Summary() {
           <div className={styles.iconContainer}>
             <ArrowUpFromLine className={styles.greenIcon} />
           </div>
-          <span className={styles.amount}>R$ {income.toFixed(2)}</span>
+          <span className={styles.amount}>{formatCurrency(income)}</span>
         </div>
         <p className={styles.footer}>Total de entradas</p>
       </div>
@@ -52,7 +53,7 @@ export function Summary() {
           <div className={styles.iconContainer}>
             <ArrowDownFromLine className={styles.arrowDownFromLine} />
           </div>
-          <span className={styles.spent}>R$ {expense.toFixed(2)}</span>
+          <span className={styles.spent}>{formatCurrency(expense)}</span>
         </div>
         <p className={styles.footer}>Total de saídas</p>
       </div>
