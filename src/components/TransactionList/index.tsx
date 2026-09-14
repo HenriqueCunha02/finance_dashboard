@@ -19,6 +19,8 @@ export function TransactionList() {
   const [search, setSearch] = useState('');
   const [typeFilter, setTypeFilter] = useState('all');
   const [categoryFilter, setCategoryFilter] = useState('all');
+  const [startDate, setStartDate] = useState('');
+  const [endDate, setEndDate] = useState('');
 
   const filteredTransactions = state.transactions.filter(transaction => {
     const matchesSearch = transaction.description
@@ -30,7 +32,13 @@ export function TransactionList() {
     const matchesCategory =
       categoryFilter === 'all' || transaction.category === categoryFilter;
 
-    return matchesSearch && matchesType && matchesCategory;
+    const matchesDate =
+      (!startDate ||
+        new Date(transaction.date) >= new Date(`${startDate}T00:00:00`)) &&
+      (!endDate ||
+        new Date(transaction.date) <= new Date(`${endDate}T23:59:59`));
+
+    return matchesSearch && matchesType && matchesCategory && matchesDate;
   });
 
   const sortedTransactions = [...filteredTransactions].sort(
@@ -58,7 +66,6 @@ export function TransactionList() {
           placeholder='Pesquisar'
           onChange={e => setSearch(e.target.value)}
         />
-
         <select
           name='category'
           id='category'
@@ -72,7 +79,6 @@ export function TransactionList() {
             </option>
           ))}
         </select>
-
         <select
           name='type'
           id='type'
@@ -83,6 +89,20 @@ export function TransactionList() {
           <option value='income'>Receita</option>
           <option value='expense'>Despesas</option>
         </select>
+
+        <div className={styles.filterDateContainer}>
+          <input
+            type='date'
+            value={startDate}
+            onChange={e => setStartDate(e.target.value)}
+          />
+
+          <input
+            type='date'
+            value={endDate}
+            onChange={e => setEndDate(e.target.value)}
+          />
+        </div>
       </div>
 
       <ul>

@@ -6,7 +6,6 @@
   margin: 0px 40px 40px 20px;
   padding: 20px;
   width: 100%;
-  max-height: 454px;
 }
 
 .headerContainer {
@@ -137,15 +136,41 @@ li .amountNegative {
   border: none;
   cursor: pointer;
 }
+
 .filterContainer {
   display: flex;
   justify-content: space-between;
   margin-top: 20px;
-  gap: 6px;
+  gap: 16px;
 }
+
 .filterContainer input,
 select {
   width: 100%;
+}
+
+.filterDateContainer {
+  gap: 16px;
+  display: flex;
+}
+
+input[type='date'] {
+  font-family: inherit;
+  color: var(--color-text-primary);
+}
+
+[data-theme='dark'] input[type='date']::-webkit-calendar-picker-indicator {
+  filter: invert(65%) sepia(90%) saturate(700%) hue-rotate(90deg);
+}
+
+@media (max-width: 1570px) {
+  .filterContainer {
+    display: block;
+  }
+
+  .filterContainer > * {
+    margin-top: 20px;
+  }
 }
 
 @media (max-width: 1200px) {
@@ -187,6 +212,10 @@ select {
   .trashButton {
     display: flex;
     align-items: flex-end;
+  }
+
+  .filterContainer {
+    flex-direction: column;
   }
 }
 
