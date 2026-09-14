@@ -116,6 +116,8 @@ li .amountNegative {
 
 .trashIcon {
   color: var(--color-text-primary);
+  width: 2rem;
+  height: 2rem;
 }
 
 .trasationLeft {
@@ -139,6 +141,6 @@ li .amountNegative {
 @media (max-width: 1200px) {
   .container {
     width: auto;
-    margin: 0px 20px 20px 20px;
+    margin: 0px 15px 15px 15px;
   }
 }

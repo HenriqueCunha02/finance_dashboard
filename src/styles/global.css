@@ -9,6 +9,12 @@ html {
   height: 100%;
 }
 
+@media (max-width: 600px) {
+  html {
+    font-size: 40%;
+  }
+}
+
 body {
   font-family:
     Roboto,
