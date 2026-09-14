@@ -94,6 +94,9 @@ export function TransactionForm() {
             <div className={styles.field}>
               <label htmlFor='type'>Tipo</label>
               <select name='type' id='type'>
+                <option value='' disabled>
+                  Selecione o tipo de transação
+                </option>
                 <option value='income'>Receita</option>
                 <option value='expense'>Despesa</option>
               </select>
@@ -112,7 +115,9 @@ export function TransactionForm() {
               </button>
             </div>
             <select name='category' id='category'>
-              <option value=''>Selecione uma categoria</option>
+              <option value='' disabled>
+                Selecione uma categoria
+              </option>
               {state.categories.map(category => (
                 <option key={category} value={category}>
                   {category}

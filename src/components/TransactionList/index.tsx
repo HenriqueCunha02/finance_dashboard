@@ -1,3 +1,5 @@
+import { useState } from 'react';
+
 import {
   ArrowDownFromLine,
   ArrowUpFromLine,
@@ -14,7 +16,24 @@ import { formatDate } from '../../utils/formatDate';
 export function TransactionList() {
   const { state, dispatch } = useFinanceContext();
 
-  const sortedTransactions = [...state.transactions].sort(
+  const [search, setSearch] = useState('');
+  const [typeFilter, setTypeFilter] = useState('all');
+  const [categoryFilter, setCategoryFilter] = useState('all');
+
+  const filteredTransactions = state.transactions.filter(transaction => {
+    const matchesSearch = transaction.description
+      .toLowerCase()
+      .includes(search.toLowerCase());
+
+    const matchesType = typeFilter === 'all' || transaction.type === typeFilter;
+
+    const matchesCategory =
+      categoryFilter === 'all' || transaction.category === categoryFilter;
+
+    return matchesSearch && matchesType && matchesCategory;
+  });
+
+  const sortedTransactions = [...filteredTransactions].sort(
     (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
   );
 
@@ -29,6 +48,41 @@ export function TransactionList() {
           <h2>Transações</h2>
           <p>Lista das suas últimas movimentações</p>
         </div>
+      </div>
+
+      <div className={styles.filterContainer}>
+        <input
+          type='text'
+          name='search'
+          id='search'
+          placeholder='Pesquisar'
+          onChange={e => setSearch(e.target.value)}
+        />
+
+        <select
+          name='category'
+          id='category'
+          value={categoryFilter}
+          onChange={e => setCategoryFilter(e.target.value)}
+        >
+          <option value='all'>Todas as categorias</option>
+          {state.categories.map(category => (
+            <option key={category} value={category}>
+              {category}
+            </option>
+          ))}
+        </select>
+
+        <select
+          name='type'
+          id='type'
+          value={typeFilter}
+          onChange={e => setTypeFilter(e.target.value)}
+        >
+          <option value='all'>Todos os tipos</option>
+          <option value='income'>Receita</option>
+          <option value='expense'>Despesas</option>
+        </select>
       </div>
 
       <ul>

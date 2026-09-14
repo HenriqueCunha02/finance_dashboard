@@ -137,6 +137,16 @@ li .amountNegative {
   border: none;
   cursor: pointer;
 }
+.filterContainer {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+  gap: 6px;
+}
+.filterContainer input,
+select {
+  width: 100%;
+}
 
 @media (max-width: 1200px) {
   .container {
