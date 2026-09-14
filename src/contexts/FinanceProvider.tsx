@@ -15,10 +15,14 @@ const defaultState: FinanceStateModel = {
   theme: 'dark',
 };
 
-localStorage.removeItem('finance-dashboard');
+const savedState = localStorage.getItem('finance-dashboard');
+
+const initialState: FinanceStateModel = savedState
+  ? JSON.parse(savedState)
+  : defaultState;
 
 export function FinanceProvider({ children }: FinanceProviderProps) {
-  const [state, dispatch] = useReducer(FinanceReducer, defaultState);
+  const [state, dispatch] = useReducer(FinanceReducer, initialState);
 
   useEffect(() => {
     document.documentElement.dataset.theme = state.theme;
