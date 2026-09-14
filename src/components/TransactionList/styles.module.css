@@ -248,12 +248,16 @@ input[type='date'] {
   }
 }
 
-@media (max-width: 500px) {
+@media (max-width: 530px) {
   .transationDetails {
     max-width: 100px;
     display: block;
 
     overflow-x: auto;
     white-space: nowrap;
+  }
+
+  .clearFilterIcon {
+    display: none;
   }
 }
