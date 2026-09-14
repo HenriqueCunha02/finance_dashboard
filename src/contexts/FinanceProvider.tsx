@@ -27,7 +27,8 @@ export function FinanceProvider({ children }: FinanceProviderProps) {
   }, [state.theme]);
 
   useEffect(() => {
-    localStorage.setItem('finance-dashboard', JSON.stringify(state));
+    // localStorage.setItem('finance-dashboard', JSON.stringify(state));
+    localStorage.clear();
   }, [state]);
 
   return (
