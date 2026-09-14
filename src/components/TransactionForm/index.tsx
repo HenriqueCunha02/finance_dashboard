@@ -46,7 +46,7 @@ export function TransactionForm() {
       amount: amount,
       category: category,
       type: type,
-      date: new Date().toLocaleDateString('pt-BR'),
+      date: new Date().toISOString(),
     };
 
     dispatch({

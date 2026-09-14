@@ -9,9 +9,14 @@ import styles from './styles.module.css';
 import { useFinanceContext } from '../../contexts/useFinanceContext';
 import { FinanceActionTypes } from '../../contexts/financeActions';
 import { formatCurrency } from '../../utils/formatCurrency';
+import { formatDate } from '../../utils/formatDate';
 
 export function TransactionList() {
   const { state, dispatch } = useFinanceContext();
+
+  const sortedTransactions = [...state.transactions].sort(
+    (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
+  );
 
   function handleDeleteTransaction(id: number) {
     dispatch({ type: FinanceActionTypes.DELETE_TRANSACTION, payload: id });
@@ -27,7 +32,7 @@ export function TransactionList() {
       </div>
 
       <ul>
-        {state.transactions.map(transaction => (
+        {sortedTransactions.map(transaction => (
           <li key={transaction.id}>
             <div className={styles.trasationLeft}>
               {transaction.type === 'income' ? (
@@ -54,7 +59,7 @@ export function TransactionList() {
             </div>
 
             <div className={styles.trasationRight}>
-              <span>{transaction.date}</span>
+              <span>{formatDate(transaction.date)}</span>
               <button
                 className={styles.trashButton}
                 type='button'
