@@ -1,6 +1,8 @@
 import { useEffect, useReducer } from 'react';
+
 import { FinanceReducer } from '../reducers/financeReducer';
 import { FinanceContext } from './FinanceContext';
+
 import type { FinanceStateModel } from '../models/financeStateModel';
 
 type FinanceProviderProps = {
@@ -13,22 +15,17 @@ const defaultState: FinanceStateModel = {
   theme: 'dark',
 };
 
-const savedState = localStorage.getItem('finance-dashboard');
-
-const initialState: FinanceStateModel = savedState
-  ? JSON.parse(savedState)
-  : defaultState;
+localStorage.removeItem('finance-dashboard');
 
 export function FinanceProvider({ children }: FinanceProviderProps) {
-  const [state, dispatch] = useReducer(FinanceReducer, initialState);
+  const [state, dispatch] = useReducer(FinanceReducer, defaultState);
 
   useEffect(() => {
     document.documentElement.dataset.theme = state.theme;
   }, [state.theme]);
 
   useEffect(() => {
-    // localStorage.setItem('finance-dashboard', JSON.stringify(state));
-    localStorage.clear();
+    localStorage.setItem('finance-dashboard', JSON.stringify(state));
   }, [state]);
 
   return (
