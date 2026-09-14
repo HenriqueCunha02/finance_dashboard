@@ -144,3 +144,48 @@ li .amountNegative {
     margin: 0px 15px 15px 15px;
   }
 }
+
+@media (max-width: 768px) {
+  li {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-rows: auto auto;
+    column-gap: 12px;
+    row-gap: 4px;
+  }
+
+  .trasationLeft {
+    grid-column: 1;
+    grid-row: 1 / 3;
+  }
+
+  .trasationMiddle {
+    grid-column: 2;
+    grid-row: 1;
+    white-space: nowrap;
+  }
+
+  .trasationRight {
+    grid-column: 2;
+    grid-row: 2;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 8px;
+  }
+
+  .trashButton {
+    display: flex;
+    align-items: flex-end;
+  }
+}
+
+@media (max-width: 500px) {
+  .transationDetails {
+    max-width: 100px;
+    display: block;
+
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+}
