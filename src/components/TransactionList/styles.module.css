@@ -12,6 +12,7 @@
   display: flex;
   align-items: center;
   gap: 16px;
+  justify-content: space-between;
 }
 
 .textContainer {
@@ -37,6 +38,34 @@
 .textContainer p {
   font-size: 1.8rem;
   color: var(--color-text-muted);
+}
+
+.clearFilterButton > button {
+  display: flex;
+  align-items: center;
+  color: var(--color-success);
+  border: 1px solid var(--color-success);
+  border-radius: 6px;
+  box-shadow: var(--box-shadow);
+  background-color: transparent;
+  padding: 0.8rem;
+  font-size: 1.5rem;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.clearFilterButton:hover {
+  opacity: 80%;
+}
+
+.clearFilterButton:active {
+  opacity: 60%;
+}
+
+.clearFilterButton .clearFilterIcon {
+  height: 1.5rem;
+  width: 1.5rem;
+  margin-right: 6px;
 }
 
 ul {

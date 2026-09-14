@@ -5,6 +5,7 @@ import {
   ArrowUpFromLine,
   ListSortDescending,
   Trash,
+  X,
 } from 'lucide-react';
 
 import styles from './styles.module.css';
@@ -48,21 +49,37 @@ export function TransactionList() {
   function handleDeleteTransaction(id: number) {
     dispatch({ type: FinanceActionTypes.DELETE_TRANSACTION, payload: id });
   }
+
+  function handleClearFilter() {
+    setSearch('');
+    setTypeFilter('all');
+    setCategoryFilter('all');
+    setStartDate('');
+    setEndDate('');
+  }
+
   return (
     <div className={styles.container}>
       <div className={styles.headerContainer}>
-        <ListSortDescending className={styles.listIcon} />
-        <div className={styles.textContainer}>
-          <h2>Transações</h2>
-          <p>Lista das suas últimas movimentações</p>
+        <div className={styles.headerContainer}>
+          <ListSortDescending className={styles.listIcon} />
+          <div className={styles.textContainer}>
+            <h2>Transações</h2>
+            <p>Lista das suas últimas movimentações</p>
+          </div>
+        </div>
+
+        <div className={styles.clearFilterButton}>
+          <button type='button' onClick={handleClearFilter}>
+            <X className={styles.clearFilterIcon} /> Limpar filtros
+          </button>
         </div>
       </div>
 
       <div className={styles.filterContainer}>
         <input
           type='text'
-          name='search'
-          id='search'
+          value={search}
           placeholder='Pesquisar'
           onChange={e => setSearch(e.target.value)}
         />
