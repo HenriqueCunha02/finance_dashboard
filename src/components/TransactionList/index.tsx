@@ -3,7 +3,9 @@ import { useState } from 'react';
 import {
   ArrowDownFromLine,
   ArrowUpFromLine,
+  ListRestart,
   ListSortDescending,
+  Receipt,
   Trash,
   X,
 } from 'lucide-react';
@@ -46,6 +48,13 @@ export function TransactionList() {
     (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
   );
 
+  const hasActiveFilters =
+    search !== '' ||
+    typeFilter !== 'all' ||
+    categoryFilter !== 'all' ||
+    startDate !== '' ||
+    endDate !== '';
+
   function handleDeleteTransaction(id: number) {
     dispatch({ type: FinanceActionTypes.DELETE_TRANSACTION, payload: id });
   }
@@ -65,17 +74,22 @@ export function TransactionList() {
           <ListSortDescending className={styles.listIcon} />
           <div className={styles.textContainer}>
             <h2>Transações</h2>
-            <p>Lista das suas últimas movimentações</p>
+            {sortedTransactions.length === 1 ? (
+              <p>{sortedTransactions.length} transação encontrada</p>
+            ) : (
+              <p>{sortedTransactions.length} transações encontradas</p>
+            )}
           </div>
         </div>
 
-        <div className={styles.clearFilterButton}>
-          <button type='button' onClick={handleClearFilter}>
-            <X className={styles.clearFilterIcon} /> Limpar filtros
-          </button>
-        </div>
+        {hasActiveFilters && (
+          <div className={styles.clearFilterButton}>
+            <button type='button' onClick={handleClearFilter}>
+              <X className={styles.clearFilterIcon} /> Limpar filtros
+            </button>
+          </div>
+        )}
       </div>
-
       <div className={styles.filterContainer}>
         <input
           type='text'
@@ -122,46 +136,60 @@ export function TransactionList() {
         </div>
       </div>
 
-      <ul>
-        {sortedTransactions.map(transaction => (
-          <li key={transaction.id}>
-            <div className={styles.trasationLeft}>
-              {transaction.type === 'income' ? (
-                <ArrowUpFromLine className={styles.arrowUpIcon} />
-              ) : (
-                <ArrowDownFromLine className={styles.arrowDownIcon} />
-              )}
-              <div className={styles.transationDetails}>
-                <span>{transaction.description}</span>
-                <p>{transaction.category}</p>
+      {state.transactions.length === 0 ? (
+        <div className={styles.emptyState}>
+          <Receipt />
+          <span>Nenhuma transação cadastrada.</span>
+          <p>Adicione sua primeira transação para começar.</p>
+        </div>
+      ) : sortedTransactions.length === 0 ? (
+        <div className={styles.emptyState}>
+          <ListRestart />
+          <span>Nenhuma transação encontrada.</span>
+          <p>Tente alterar ou limpar os filtros.</p>
+        </div>
+      ) : (
+        <ul>
+          {sortedTransactions.map(transaction => (
+            <li key={transaction.id}>
+              <div className={styles.trasationLeft}>
+                {transaction.type === 'income' ? (
+                  <ArrowUpFromLine className={styles.arrowUpIcon} />
+                ) : (
+                  <ArrowDownFromLine className={styles.arrowDownIcon} />
+                )}
+                <div className={styles.transationDetails}>
+                  <span>{transaction.description}</span>
+                  <p>{transaction.category}</p>
+                </div>
               </div>
-            </div>
 
-            <div className={styles.trasationMiddle}>
-              {transaction.type === 'income' ? (
-                <span className={styles.amountPositive}>
-                  + {formatCurrency(transaction.amount)}
-                </span>
-              ) : (
-                <span className={styles.amountNegative}>
-                  - {formatCurrency(transaction.amount)}
-                </span>
-              )}
-            </div>
+              <div className={styles.trasationMiddle}>
+                {transaction.type === 'income' ? (
+                  <span className={styles.amountPositive}>
+                    + {formatCurrency(transaction.amount)}
+                  </span>
+                ) : (
+                  <span className={styles.amountNegative}>
+                    - {formatCurrency(transaction.amount)}
+                  </span>
+                )}
+              </div>
 
-            <div className={styles.trasationRight}>
-              <span>{formatDate(transaction.date)}</span>
-              <button
-                className={styles.trashButton}
-                type='button'
-                onClick={() => handleDeleteTransaction(transaction.id)}
-              >
-                <Trash className={styles.trashIcon} />
-              </button>
-            </div>
-          </li>
-        ))}
-      </ul>
+              <div className={styles.trasationRight}>
+                <span>{formatDate(transaction.date)}</span>
+                <button
+                  className={styles.trashButton}
+                  type='button'
+                  onClick={() => handleDeleteTransaction(transaction.id)}
+                >
+                  <Trash className={styles.trashIcon} />
+                </button>
+              </div>
+            </li>
+          ))}
+        </ul>
+      )}
     </div>
   );
 }
